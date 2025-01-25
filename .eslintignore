@@ -1,0 +1,32 @@
+# Dependências
+node_modules
+.pnp
+.pnp.js
+
+# Build e produção
+.next/
+out/
+build
+dist
+
+# Cache
+.cache
+.eslintcache
+
+# Arquivos de ambiente
+.env
+.env.*
+!.env.example
+
+# Configurações
+*.config.js
+*.config.mjs
+*.config.ts
+
+# Typescript
+*.d.ts
+next-env.d.ts
+
+# Outros
+public
+coverage
