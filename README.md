@@ -59,7 +59,7 @@ npm install
 ```
 4. Crie um arquivo `.env.local` no diretório raiz com:
 ```bash
-NEXT_PUBLIC_API_URL=https://wishlist-api-gray.vercel.app/api
+NEXT_PUBLIC_API_URL=https://wishlist-service-lckk.onrender.com/api
 ```
 5. Execute o projeto:
 ```bash
