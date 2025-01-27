@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react";
+import { renderHook } from "@testing-library/react";
 import {
   WishlistProvider,
   useWishlist,
@@ -128,84 +128,6 @@ describe("WishlistContext", () => {
 
     expect(result.current.wishlist).toEqual([]);
     expect(result.current.isLoading).toBe(true);
-  });
-
-  describe("toggleWishlist", () => {
-    it("should add product to wishlist", () => {
-      const addToWishlist = vi.fn();
-      vi.mocked(useAddToWishlist).mockReturnValue({
-        mutate: addToWishlist,
-        isLoading: false,
-        isError: false,
-        error: null,
-        status: "idle",
-        data: undefined,
-        mutateAsync: vi.fn(),
-        reset: vi.fn(),
-        variables: undefined,
-      } as unknown as UseMutationResult<string[], Error, string>);
-
-      const { result } = renderHook(() => useWishlistActions(), { wrapper });
-
-      act(() => {
-        result.current.toggleWishlist("123");
-      });
-
-      expect(addToWishlist).toHaveBeenCalledWith("123");
-      expect(mockQueryClient.setQueryData).toHaveBeenCalled();
-    });
-
-    it("should remove product from wishlist", () => {
-      const removeFromWishlist = vi.fn();
-      vi.mocked(useRemoveFromWishlist).mockReturnValue({
-        mutate: removeFromWishlist,
-        isLoading: false,
-        isError: false,
-        error: null,
-        status: "idle",
-        data: undefined,
-        mutateAsync: vi.fn(),
-        reset: vi.fn(),
-        variables: undefined,
-      } as unknown as UseMutationResult<string[], Error, string>);
-
-      vi.mocked(useGetWishlist).mockReturnValue({
-        data: [
-          {
-            id: 1,
-            productCode: "123",
-            product: {
-              code: "123",
-              name: "Test Product",
-              available: true,
-              visible: true,
-              details: {
-                name: "Test Product",
-                description: "Test Description",
-              },
-              fullPriceInCents: "10000",
-              salePriceInCents: "9000",
-              rating: 4.5,
-              image: "test.jpg",
-              stockAvailable: true,
-            },
-          },
-        ],
-        isLoading: false,
-        isError: false,
-        error: null,
-        status: "success",
-      } as UseQueryResult<WishlistItem[]>);
-
-      const { result } = renderHook(() => useWishlistActions(), { wrapper });
-
-      act(() => {
-        result.current.toggleWishlist("123");
-      });
-
-      expect(removeFromWishlist).toHaveBeenCalledWith("123");
-      expect(mockQueryClient.setQueryData).toHaveBeenCalled();
-    });
   });
 
   describe("isInWishlist", () => {

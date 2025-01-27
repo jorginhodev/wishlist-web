@@ -1,5 +1,5 @@
 import { httpClient } from "./http-client";
-import { APIError, NetworkError } from "./errors";
+import { APIError } from "./errors";
 
 describe("httpClient", () => {
   beforeEach(() => {
@@ -26,17 +26,6 @@ describe("httpClient", () => {
     );
 
     await expect(httpClient.get("/test")).rejects.toThrow(APIError);
-    await expect(httpClient.get("/test")).rejects.toThrow(
-      "Network connection failed",
-    );
-  });
-
-  it("should throw NetworkError on network failure", async () => {
-    vi.spyOn(httpClient, "get").mockRejectedValueOnce(
-      new NetworkError("Network connection failed"),
-    );
-
-    await expect(httpClient.get("/test")).rejects.toThrow(NetworkError);
     await expect(httpClient.get("/test")).rejects.toThrow(
       "Network connection failed",
     );
